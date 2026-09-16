@@ -1,0 +1,38 @@
+# Homebrew formula for rtemis-afm — template.
+#
+# The release workflow fills in 0.1.0 and b767bcb5e6671042aff50858103332e100efc3f24a7cb922f469b00b14fa6f2e and commits the
+# result as `Formula/rtemis-afm.rb` in the `rtemis-org/homebrew-tap`
+# repository, so that `brew install rtemis-org/tap/rtemis-afm` works.
+#
+# The formula installs a prebuilt, ad-hoc-signed binary rather than building
+# from source: a source build needs Xcode 27, which most users will not have.
+class RtemisAfm < Formula
+  desc "Serve Apple's on-device Foundation Model to rtemislive over the OpenAI chat wire"
+  homepage "https://github.com/rtemis-org/rtemis-afm"
+  url "https://github.com/rtemis-org/rtemis-afm/releases/download/v0.1.0/rtemis-afm-0.1.0-macos-arm64.tar.gz"
+  sha256 "b767bcb5e6671042aff50858103332e100efc3f24a7cb922f469b00b14fa6f2e"
+  version "0.1.0"
+  license "BSD-3-Clause"
+
+  # Apple silicon only, macOS 27 (Homebrew codename "Golden Gate") or later.
+  # In a formula, `depends_on macos:` is a minimum, not an exact match.
+  depends_on arch: :arm64
+  depends_on macos: :golden_gate
+
+  def install
+    bin.install "rtemis-afm"
+  end
+
+  def caveats
+    <<~EOS
+      Start the bridge with:
+        rtemis-afm
+      then pick "Apple Intelligence" in rtemislive (https://live.rtemis.org).
+      Apple Intelligence must be turned on in System Settings.
+    EOS
+  end
+
+  test do
+    assert_equal "0.1.0", shell_output("#{bin}/rtemis-afm version").strip
+  end
+end
