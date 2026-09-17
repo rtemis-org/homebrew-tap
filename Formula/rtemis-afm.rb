@@ -1,6 +1,7 @@
 # Homebrew formula for rtemis-afm — template.
 #
-# The release workflow fills in 0.1.0 and b767bcb5e6671042aff50858103332e100efc3f24a7cb922f469b00b14fa6f2e and commits the
+# The release workflow fills in 0.1.1 (in the URL; Homebrew reads the
+# formula version from the tarball name) and 2bb9ab932df3780f90a1a4ef2fd62201c0ef85703e556082a7a307f1b4430176, and commits the
 # result as `Formula/rtemis-afm.rb` in the `rtemis-org/homebrew-tap`
 # repository, so that `brew install rtemis-org/tap/rtemis-afm` works.
 #
@@ -9,9 +10,8 @@
 class RtemisAfm < Formula
   desc "Serve Apple's on-device Foundation Model to rtemislive over the OpenAI chat wire"
   homepage "https://github.com/rtemis-org/rtemis-afm"
-  url "https://github.com/rtemis-org/rtemis-afm/releases/download/v0.1.0/rtemis-afm-0.1.0-macos-arm64.tar.gz"
-  sha256 "b767bcb5e6671042aff50858103332e100efc3f24a7cb922f469b00b14fa6f2e"
-  version "0.1.0"
+  url "https://github.com/rtemis-org/rtemis-afm/releases/download/v0.1.1/rtemis-afm-0.1.1-macos-arm64.tar.gz"
+  sha256 "2bb9ab932df3780f90a1a4ef2fd62201c0ef85703e556082a7a307f1b4430176"
   license "BSD-3-Clause"
 
   # Apple silicon only, macOS 27 (Homebrew codename "Golden Gate") or later.
@@ -33,6 +33,6 @@ class RtemisAfm < Formula
   end
 
   test do
-    assert_equal "0.1.0", shell_output("#{bin}/rtemis-afm version").strip
+    assert_equal version.to_s, shell_output("#{bin}/rtemis-afm version").strip
   end
 end
